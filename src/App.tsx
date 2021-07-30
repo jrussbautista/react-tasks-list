@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+
+import AddTodoForm from './components/AddTodoForm';
+import TodoList from './components/TodoList';
+import { Todo } from './types';
 
 function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleAddTodo = (todo: Todo) => {
+    setTodos([...todos, todo]);
+  };
+
+  const handleDeleteTodo = (todoToDelete: Todo) => {
+    const filterTodos = todos.filter((todo) => todo.id !== todoToDelete.id);
+    setTodos(filterTodos);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Husky
-        </a>
-      </header>
+      <AddTodoForm onAddTodo={handleAddTodo} />
+      <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
     </div>
   );
 }
