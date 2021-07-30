@@ -33,6 +33,7 @@ module.exports = {
         'plugin:jsx-a11y/recommended',
         'plugin:prettier/recommended',
         'plugin:testing-library/react',
+        'plugin:jest-dom/recommended',
       ],
       rules: {
         'linebreak-style': ['error', 'unix'],
