@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="container mx-auto my-5">
       <AddTodoForm onAddTodo={handleAddTodo} />
       <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onCompleteTodo={handleCompleteTodo} />
     </div>

@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "noUnusedLocals": true
   },
-  "include": ["src"]
+  "include": ["src", "craco.config.js"]
 }

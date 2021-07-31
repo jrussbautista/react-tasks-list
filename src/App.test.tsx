@@ -9,15 +9,13 @@ describe('TodoList App', () => {
 
     const fields = {
       title: 'Test Todo title',
-      description: 'Test todo description',
     };
 
     const titleElement = screen.getByLabelText(/title/i);
-    const descriptionElement = screen.getByLabelText(/description/i);
+
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
     userEvent.type(titleElement, fields.title);
-    userEvent.type(descriptionElement, fields.description);
     userEvent.click(submitButton);
 
     expect(screen.getByText(fields.title)).toBeInTheDocument();

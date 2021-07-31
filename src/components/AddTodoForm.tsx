@@ -8,7 +8,6 @@ interface Props {
 
 const initialFields: AddTodoFields = {
   title: '',
-  description: '',
 };
 
 const AddTodoForm: React.FC<Props> = ({ onAddTodo }) => {
@@ -26,21 +25,27 @@ const AddTodoForm: React.FC<Props> = ({ onAddTodo }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title</label>
-        <input type="text" name="title" id="title" onChange={handleChange} value={fields.title} />
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
+      <div className="mb-4">
+        <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
+          Title
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="title"
+          name="title"
+          type="text"
           onChange={handleChange}
-          value={fields.description}
-        ></textarea>
+          value={fields.title}
+        />
       </div>
+
       <div>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

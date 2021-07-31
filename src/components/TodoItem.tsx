@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { IoTrash } from 'react-icons/io5';
 
 import { Todo } from '../types';
 
@@ -12,20 +13,29 @@ interface Props {
 
 const TodoItem: React.FC<Props> = ({ todo, onDeleteTodo, onCompleteTodo }) => {
   return (
-    <li>
-      <div>
-        <input
-          type="checkbox"
-          name="completeTodo"
-          checked={todo.isCompleted}
-          onChange={() => onCompleteTodo(todo)}
-        />
+    <li className="rounded border bg-white shadow mb-5 p-4">
+      <div className="flex">
+        <div>
+          <input
+            type="checkbox"
+            name="completeTodo"
+            checked={todo.isCompleted}
+            onChange={() => onCompleteTodo(todo)}
+          />
+        </div>
+        <div className="px-5 flex-1">
+          <h3 className={classNames({ [styles.completed]: todo.isCompleted })}>{todo.title}</h3>
+        </div>
+
+        <button
+          className="text-red-500"
+          type="button"
+          aria-label="Delete todo item"
+          onClick={() => onDeleteTodo(todo)}
+        >
+          <IoTrash />
+        </button>
       </div>
-      <h3 className={classNames({ [styles.completed]: todo.isCompleted })}>{todo.title}</h3>
-      <p>{todo.description}</p>
-      <button type="button" aria-label="Delete todo item" onClick={() => onDeleteTodo(todo)}>
-        X
-      </button>
     </li>
   );
 };
