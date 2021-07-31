@@ -3,10 +3,11 @@ import { useState } from 'react';
 
 import AddTodoForm from './components/AddTodoForm';
 import TodoList from './components/TodoList';
+import mockTodos from './mocks/todos';
 import { AddTodoFields, Todo } from './types';
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(mockTodos);
 
   const handleAddTodo = (fields: AddTodoFields) => {
     const newTodo: Todo = { ...fields, id: Date.now().toString(), isCompleted: false };
