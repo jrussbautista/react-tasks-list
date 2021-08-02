@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import mockTodos from '../../mocks/todos';
+import { todos as mockTodos } from '../../mocks/data';
 import TodoList from '../TodoList';
 
 describe('TodoList', () => {

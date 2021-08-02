@@ -1,13 +1,26 @@
-import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import AddTodoForm from './components/AddTodoForm';
 import TodoList from './components/TodoList';
-import mockTodos from './mocks/todos';
+import TodoService from './services/TodoService';
 import { AddTodoFields, Todo } from './types';
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>(mockTodos);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todosStatus, setTodosStatus] = useState('loading');
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const { data } = await TodoService.getTodos();
+        setTodos(data);
+        setTodosStatus('succeed');
+      } catch (error) {
+        setTodosStatus('failed');
+      }
+    };
+    fetchTodos();
+  }, []);
 
   const handleAddTodo = (fields: AddTodoFields) => {
     const newTodo: Todo = { ...fields, id: Date.now().toString(), isCompleted: false };
@@ -26,10 +39,18 @@ function App() {
     setTodos(updatedTodos);
   };
 
+  if (todosStatus === 'loading') {
+    return <p>Loading...</p>;
+  }
+
+  if (todosStatus === 'failed') {
+    return <div role="alert">Unexpected error occured. Please try again soon.</div>;
+  }
+
   return (
     <div className="container mx-auto my-5">
-      <AddTodoForm onAddTodo={handleAddTodo} />
       <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onCompleteTodo={handleCompleteTodo} />
+      <AddTodoForm onAddTodo={handleAddTodo} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Todo } from './../types';
+import { Todo } from '../types';
 
-const todos: Todo[] = [
+export const todos: Todo[] = [
   {
     id: uuidv4(),
     title: 'Eat breakfast',
@@ -29,4 +29,3 @@ const todos: Todo[] = [
     isCompleted: false,
   },
 ];
-export default todos;
