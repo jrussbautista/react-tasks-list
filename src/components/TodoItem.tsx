@@ -17,6 +17,7 @@ const TodoItem: React.FC<Props> = ({ todo, onDeleteTodo, onCompleteTodo }) => {
       <div className="flex">
         <div>
           <input
+            id={`todo-item-${todo.id}`}
             type="checkbox"
             name="completeTodo"
             checked={todo.isCompleted}
@@ -24,7 +25,12 @@ const TodoItem: React.FC<Props> = ({ todo, onDeleteTodo, onCompleteTodo }) => {
           />
         </div>
         <div className="px-5 flex-1">
-          <h3 className={classNames({ [styles.completed]: todo.isCompleted })}>{todo.title}</h3>
+          <label
+            htmlFor={`todo-item-${todo.id}`}
+            className={classNames({ [styles.completed]: todo.isCompleted })}
+          >
+            {todo.title}
+          </label>
         </div>
 
         <button

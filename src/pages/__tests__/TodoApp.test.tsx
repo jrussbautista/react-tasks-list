@@ -1,15 +1,14 @@
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 
-import { server } from '../src/mocks/server';
+import App from '../../App';
+import { API_URL } from '../../constants';
+import { todos } from '../../mocks/data';
+import { server } from '../../mocks/server';
 
-import App from './App';
-import { API_URL } from './constants';
-import { todos } from './mocks/data';
-
-describe('TodoList App', () => {
-  it('display list of todo items when successfully get todos', async () => {
+describe('TodoApp', () => {
+  test('display list of todo items when successfully get todos', async () => {
     render(<App />);
 
     expect(screen.getByText(/loading.../i)).toBeInTheDocument();
@@ -24,7 +23,7 @@ describe('TodoList App', () => {
     });
   });
 
-  it('display error message when there is an error getting todos', async () => {
+  test('display error message when there is an error getting todos', async () => {
     server.use(
       rest.get(`${API_URL}/todos`, (req, res, ctx) => {
         return res(ctx.status(500));
@@ -40,7 +39,30 @@ describe('TodoList App', () => {
     );
   });
 
-  it('add a new todo item on the todo list', async () => {
+  test('open and close add todo form', async () => {
+    render(<App />);
+
+    await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
+
+    const buttonAddNewTodo = screen.getByRole('button', { name: /add new todo/i });
+    // open add new todo form
+    fireEvent.click(buttonAddNewTodo);
+
+    const buttonCancel = screen.getByRole('button', { name: /cancel/i });
+    const titleElement = screen.getByLabelText(/title/i);
+
+    expect(buttonAddNewTodo).not.toBeInTheDocument();
+    expect(titleElement).toBeInTheDocument();
+
+    // close add new todo form
+    fireEvent.click(buttonCancel);
+
+    expect(screen.getByRole('button', { name: /add new todo/i })).toBeInTheDocument();
+    expect(buttonCancel).not.toBeInTheDocument();
+    expect(titleElement).not.toBeInTheDocument();
+  });
+
+  test('add a new todo item on the todo list', async () => {
     render(<App />);
 
     const fields = {
@@ -49,10 +71,12 @@ describe('TodoList App', () => {
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
 
+    const buttonAddNewTodo = screen.getByRole('button', { name: /add new todo/i });
+    // this will show add todo form
+    fireEvent.click(buttonAddNewTodo);
+
     const inputTitleElement = screen.getByLabelText(/title/i);
-
     const submitButton = screen.getByRole('button', { name: /submit/i });
-
     userEvent.type(inputTitleElement, fields.title);
     userEvent.click(submitButton);
 
@@ -64,7 +88,7 @@ describe('TodoList App', () => {
     expect(listItemsElement.length).toBe(6);
   });
 
-  it('display error message when there is an error adding new todo', async () => {
+  test('display error message when there is an error adding new todo', async () => {
     server.use(
       rest.post(`${API_URL}/todos`, (req, res, ctx) => {
         return res(ctx.status(500));
@@ -79,8 +103,11 @@ describe('TodoList App', () => {
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
 
-    const inputTitleElement = screen.getByLabelText(/title/i);
+    const buttonAddNewTodo = screen.getByRole('button', { name: /add new todo/i });
+    // this will show add todo form
+    fireEvent.click(buttonAddNewTodo);
 
+    const inputTitleElement = screen.getByLabelText(/title/i);
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
     userEvent.type(inputTitleElement, fields.title);
@@ -93,7 +120,7 @@ describe('TodoList App', () => {
     );
   });
 
-  it('remove todo item from the todo list', async () => {
+  test('remove todo item from the todo list', async () => {
     render(<App />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
@@ -107,7 +134,7 @@ describe('TodoList App', () => {
     expect(listItems[0]).not.toBeInTheDocument();
   });
 
-  it('todo item should be crossed out after checking checkbox', async () => {
+  test('todo item should be crossed out after checking checkbox', async () => {
     render(<App />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
@@ -119,7 +146,7 @@ describe('TodoList App', () => {
     expect(screen.getByText(/eat breakfast/i)).toHaveClass('completed');
   });
 
-  it('todo item should remove crossed out after unchecking checkbox', async () => {
+  test('todo item should remove crossed out after unchecking checkbox', async () => {
     render(<App />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));

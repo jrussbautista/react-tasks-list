@@ -5,13 +5,14 @@ import { AddTodoFields } from '../types';
 
 interface Props {
   onAddTodo(fields: AddTodoFields): void;
+  onCancel(): void;
 }
 
 const initialFields: AddTodoFields = {
   title: '',
 };
 
-const AddTodoForm: React.FC<Props> = ({ onAddTodo }) => {
+const AddTodoForm: React.FC<Props> = ({ onAddTodo, onCancel }) => {
   const [fields, setFields] = useState(initialFields);
   const [addTodoError, setAddTodoError] = useState('');
 
@@ -48,6 +49,13 @@ const AddTodoForm: React.FC<Props> = ({ onAddTodo }) => {
         </div>
 
         <div>
+          <button
+            type="button"
+            onClick={onCancel}
+            className="mx-3 mt-2 bg-white  text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Cancel
+          </button>
           <button
             type="submit"
             className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
