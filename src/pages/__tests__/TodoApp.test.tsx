@@ -1,11 +1,11 @@
-import { fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 
 import App from '../../App';
 import { API_URL } from '../../constants';
-import { todos } from '../../mocks/data';
-import { server } from '../../mocks/server';
+import { mockTodos } from '../../test/mock-data';
+import { server } from '../../test/server/server';
+import { fireEvent, render, screen, waitForElementToBeRemoved } from '../../test/test-utils';
 
 describe('TodoApp', () => {
   test('display list of todo items when successfully get todos', async () => {
@@ -18,7 +18,7 @@ describe('TodoApp', () => {
     const listItems = screen.getAllByRole('listitem');
     expect(listItems.length).toBe(5);
 
-    todos.forEach((todo) => {
+    mockTodos.forEach((todo) => {
       expect(screen.getByText(todo.title)).toBeInTheDocument();
     });
   });

@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Todo } from '../types';
 
-export const todos: Todo[] = [
+export const mockTodos: Todo[] = [
   {
     id: uuidv4(),
     title: 'Eat breakfast',

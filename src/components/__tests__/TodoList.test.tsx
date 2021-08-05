@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { todos as mockTodos } from '../../mocks/data';
+import { mockTodos } from '../../test/mock-data';
 import TodoList from '../TodoList';
 
 test('renders empty message when there are no todos', () => {
