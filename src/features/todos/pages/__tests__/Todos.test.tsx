@@ -1,6 +1,5 @@
 import { rest } from 'msw';
 
-import App from '../../../../App';
 import { API_URL } from '../../../../constants';
 import { mockTodos } from '../../../../test/mock-data';
 import { server } from '../../../../test/server/server';
@@ -11,10 +10,11 @@ import {
   waitForElementToBeRemoved,
   userEvent,
 } from '../../../../test/test-utils';
+import Todos from '../Todos';
 
-describe('TodoApp', () => {
+describe('Todos Page', () => {
   test('open and close add todo form', async () => {
-    render(<App />);
+    render(<Todos />);
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
 
@@ -37,7 +37,7 @@ describe('TodoApp', () => {
   });
 
   test('add a new todo item on the todo list', async () => {
-    render(<App />);
+    render(<Todos />);
 
     const fields = {
       title: 'Test Todo title',
@@ -72,7 +72,7 @@ describe('TodoApp', () => {
       })
     );
 
-    render(<App />);
+    render(<Todos />);
 
     const fields = {
       title: 'Test Todo title',
