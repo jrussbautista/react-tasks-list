@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import TodoService from '../services/TodoService';
-import { AddTodoFields } from '../types';
+import { AddTodoFields } from '../../../types';
+import { addTodo } from '../context/todo-actions';
+import { useTodo } from '../context/TodoContext';
 
 interface Props {
-  onAddTodo(fields: AddTodoFields): void;
   onCancel(): void;
 }
 
@@ -12,9 +12,12 @@ const initialFields: AddTodoFields = {
   title: '',
 };
 
-const AddTodoForm: React.FC<Props> = ({ onAddTodo, onCancel }) => {
+const AddTodoForm: React.FC<Props> = ({ onCancel }) => {
   const [fields, setFields] = useState(initialFields);
   const [addTodoError, setAddTodoError] = useState('');
+  const [addingTodo, setAddingTodo] = useState(false);
+
+  const { dispatch } = useTodo();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFields({ ...fields, [e.target.name]: e.target.value });
@@ -23,11 +26,13 @@ const AddTodoForm: React.FC<Props> = ({ onAddTodo, onCancel }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await TodoService.addTodo(fields);
-      onAddTodo(fields);
+      setAddingTodo(true);
+      await addTodo(dispatch, fields);
       setFields(initialFields);
+      setAddingTodo(false);
     } catch (error) {
       setAddTodoError('Unable to add todo right now. Please try again soon.');
+      setAddingTodo(false);
     }
   };
 
@@ -57,10 +62,11 @@ const AddTodoForm: React.FC<Props> = ({ onAddTodo, onCancel }) => {
             Cancel
           </button>
           <button
+            disabled={addingTodo}
             type="submit"
             className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Submit
+            {addingTodo ? 'Adding task...' : 'Add Task'}
           </button>
         </div>
       </form>

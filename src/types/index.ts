@@ -7,3 +7,5 @@ export interface Todo {
 export interface AddTodoFields {
   title: string;
 }
+
+export type Status = 'loading' | 'succeed' | 'failed';

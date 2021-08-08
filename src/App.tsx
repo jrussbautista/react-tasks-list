@@ -1,9 +1,9 @@
 import { Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header';
-import About from './pages/About';
-import NotFound from './pages/NotFound';
-import TodoApp from './pages/TodoApp';
+import About from './features/misc/About';
+import NotFound from './features/misc/NotFound';
+import TodoApp from './features/todo/pages/Todo';
 
 const App = () => {
   return (
