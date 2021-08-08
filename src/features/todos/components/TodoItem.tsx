@@ -6,8 +6,6 @@ import { Todo } from '../../../types';
 import { deleteTodo, toggleCompleteTodo } from '../context/todo-actions';
 import { useTodo } from '../context/TodoContext';
 
-import styles from './TodoItem.module.css';
-
 interface Props {
   todo: Todo;
 }
@@ -55,7 +53,7 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
         <div className="px-5 flex-1">
           <label
             htmlFor={`todo-item-${todo.id}`}
-            className={classNames({ [styles.completed]: todo.isCompleted })}
+            className={classNames({ 'line-through': todo.isCompleted })}
           >
             {todo.title}
           </label>

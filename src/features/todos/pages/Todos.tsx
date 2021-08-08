@@ -4,7 +4,7 @@ import { IoIosAdd } from 'react-icons/io';
 import AddTodoForm from '../components/AddTodoForm';
 import TodoList from '../components/TodoList';
 
-const TodoPage = () => {
+const TodosPage = () => {
   const [isOpenAddTodoForm, setIsOpenAddTodoForm] = useState(false);
 
   return (
@@ -24,4 +24,4 @@ const TodoPage = () => {
   );
 };
 
-export default TodoPage;
+export default TodosPage;

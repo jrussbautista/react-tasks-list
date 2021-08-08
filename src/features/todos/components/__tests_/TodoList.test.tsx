@@ -89,7 +89,7 @@ test('todo item checkbox should be toggle correctly', async () => {
   await waitFor(() => expect(firstCheckbox).toBeEnabled());
 
   // title should be crossed out
-  expect(screen.getByText(mockTodo.title)).toHaveClass('completed');
+  expect(screen.getByText(mockTodo.title)).toHaveClass('line-through');
 
   // on click again on checkbox
   userEvent.click(firstCheckbox);
@@ -97,5 +97,5 @@ test('todo item checkbox should be toggle correctly', async () => {
   await waitFor(() => expect(firstCheckbox).toBeEnabled());
 
   // title should removed the crossed out
-  expect(screen.getByText(mockTodo.title)).not.toHaveClass('completed');
+  expect(screen.getByText(mockTodo.title)).not.toHaveClass('line-through');
 });

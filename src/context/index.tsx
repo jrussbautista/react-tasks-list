@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { TodoProvider } from '../features/todo/context/TodoContext';
+import { TodoProvider } from '../features/todos/context/TodoContext';
 
 interface Props {
   children: React.ReactNode;
