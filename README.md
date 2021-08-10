@@ -17,3 +17,9 @@ npm start
 ```
 npm run test
 ```
+
+## Run end to end tests
+
+```
+npm run cypress:open
+```
