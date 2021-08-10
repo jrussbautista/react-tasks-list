@@ -47,7 +47,7 @@ const TodoList: React.FC = () => {
   }
 
   return (
-    <ul className="mt-5">
+    <ul className="mt-5" aria-label="todo-list">
       {todoItems.map((todo) => (
         <TodoItem todo={todo} key={todo.id} />
       ))}
