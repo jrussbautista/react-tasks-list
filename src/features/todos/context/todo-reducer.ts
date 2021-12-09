@@ -6,6 +6,8 @@ export enum ActionType {
   RemoveTodo = 'REMOVE_TODO',
   AddTodo = 'ADD_TODO',
   ToggleCompleteTodo = 'TOGGLE_COMPLETE_TODO',
+  MoveDownTodo = 'MOVE_DOWN_TODO',
+  MoveUpTodo = 'MOVE_UP_TODO',
 }
 
 interface GetTodos {
@@ -33,13 +35,30 @@ interface CompleteTodo {
   payload: Todo;
 }
 
+interface MoveDownTodo {
+  type: ActionType.MoveDownTodo;
+  payload: Todo;
+}
+
+interface MoveUpTodo {
+  type: ActionType.MoveUpTodo;
+  payload: Todo;
+}
+
 export interface State {
   todoItems: Todo[];
   todosStatus: Status;
   error: string;
 }
 
-export type Action = GetTodos | GetTodosFailed | RemoveTodo | AddTodo | CompleteTodo;
+export type Action =
+  | GetTodos
+  | GetTodosFailed
+  | RemoveTodo
+  | AddTodo
+  | CompleteTodo
+  | MoveDownTodo
+  | MoveUpTodo;
 
 const todoReducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -75,6 +94,67 @@ const todoReducer = (state: State, action: Action): State => {
       return {
         ...state,
         todoItems: updatedTodos,
+      };
+    }
+
+    case ActionType.MoveDownTodo: {
+      const selectedTodo = action.payload;
+      const currentTodoItems = [...state.todoItems];
+
+      const currentIndex = state.todoItems.findIndex((todoItem) => todoItem.id === selectedTodo.id);
+      const nextIndex = currentIndex + 1;
+
+      const filteredTodoItems = currentTodoItems.filter(
+        (todoItem) => todoItem.id !== selectedTodo.id
+      );
+
+      if (currentIndex === state.todoItems.length - 1) {
+        const todoItems = [selectedTodo, ...filteredTodoItems];
+        return {
+          ...state,
+          todoItems,
+        };
+      }
+
+      const start = filteredTodoItems.slice(0, nextIndex);
+
+      const end = filteredTodoItems.slice(nextIndex);
+
+      const todoItems = [...start, selectedTodo, ...end];
+
+      return {
+        ...state,
+        todoItems,
+      };
+    }
+    case ActionType.MoveUpTodo: {
+      const selectedTodo = action.payload;
+      const currentTodoItems = [...state.todoItems];
+
+      const currentIndex = state.todoItems.findIndex((todoItem) => todoItem.id === selectedTodo.id);
+      const prevIndex = currentIndex - 1;
+
+      const filteredTodoItems = currentTodoItems.filter(
+        (todoItem) => todoItem.id !== selectedTodo.id
+      );
+
+      if (currentIndex === 0) {
+        const todoItems = [...filteredTodoItems, selectedTodo];
+        return {
+          ...state,
+          todoItems,
+        };
+      }
+
+      const start = filteredTodoItems.slice(0, prevIndex);
+
+      const end = filteredTodoItems.slice(prevIndex);
+
+      const todoItems = [...start, selectedTodo, ...end];
+
+      return {
+        ...state,
+        todoItems,
       };
     }
 

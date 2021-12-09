@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { useState } from 'react';
-import { IoTrash } from 'react-icons/io5';
+import { IoTrash, IoArrowUp, IoArrowDown } from 'react-icons/io5';
 
 import { Todo } from '../../../types';
-import { deleteTodo, toggleCompleteTodo } from '../context/todo-actions';
+import { deleteTodo, toggleCompleteTodo, moveDownTodo, moveUpTodo } from '../context/todo-actions';
 import { useTodo } from '../context/TodoContext';
 
 interface Props {
@@ -37,6 +37,14 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
     }
   };
 
+  const handleMoveDownTodo = () => {
+    moveDownTodo(dispatch, todo);
+  };
+
+  const handleMoveUpTodo = () => {
+    moveUpTodo(dispatch, todo);
+  };
+
   return (
     <li className="rounded border bg-white shadow mb-5 p-4">
       <div className="flex">
@@ -58,6 +66,14 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
             {todo.title}
           </label>
         </div>
+
+        <button className="mr-6" onClick={handleMoveDownTodo}>
+          <IoArrowDown />
+        </button>
+
+        <button className="mr-6" onClick={handleMoveUpTodo}>
+          <IoArrowUp />
+        </button>
 
         <button
           className="text-red-500"

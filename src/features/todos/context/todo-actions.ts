@@ -26,3 +26,11 @@ export const toggleCompleteTodo = async (dispatch: React.Dispatch<Action>, todo:
   await TodoAPI.toggleCompleteTodo(todo);
   dispatch({ type: ActionType.ToggleCompleteTodo, payload: todo });
 };
+
+export const moveDownTodo = (dispatch: React.Dispatch<Action>, todo: Todo) => {
+  dispatch({ type: ActionType.MoveDownTodo, payload: todo });
+};
+
+export const moveUpTodo = (dispatch: React.Dispatch<Action>, todo: Todo) => {
+  dispatch({ type: ActionType.MoveUpTodo, payload: todo });
+};
