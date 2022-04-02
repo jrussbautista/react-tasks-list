@@ -1,9 +1,9 @@
 import { Switch, Route } from 'react-router-dom';
 
-import Header from './components/Header';
-import About from './features/misc/About';
-import NotFound from './features/misc/NotFound';
-import Todos from './features/todos/pages/Todos';
+import Header from 'app/header';
+import AboutPage from 'pages/about';
+import NotFoundPage from 'pages/not-found';
+import TasksListPage from 'pages/tasks';
 
 const App = () => {
   return (
@@ -11,13 +11,13 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/">
-          <Todos />
+          <TasksListPage />
         </Route>
         <Route exact path="/about">
-          <About />
+          <AboutPage />
         </Route>
-        <Route>
-          <NotFound />
+        <Route path="*">
+          <NotFoundPage />
         </Route>
       </Switch>
     </>

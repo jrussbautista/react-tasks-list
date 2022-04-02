@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Todo } from '../types';
+import { Task } from 'types/task';
 
-export const mockTodos: Todo[] = [
+export const mockTasks: Task[] = [
   {
     id: uuidv4(),
     title: 'Eat breakfast',

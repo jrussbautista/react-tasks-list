@@ -15,7 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "useUnknownInCatchVariables": false,
+    "baseUrl": "src"
   },
-  "include": ["src", "craco.config.js"]
+  "include": ["src"]
 }

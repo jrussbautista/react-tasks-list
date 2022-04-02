@@ -31,12 +31,11 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
         'plugin:jsx-a11y/recommended',
-        'plugin:prettier/recommended',
         'plugin:testing-library/react',
         'plugin:jest-dom/recommended',
       ],
+      plugins: ['@typescript-eslint', 'prettier'],
       rules: {
-        'linebreak-style': ['error', 'unix'],
         'react/prop-types': 'off',
 
         'import/order': [

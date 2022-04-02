@@ -1,23 +1,25 @@
 import { rest } from 'msw';
 import { v4 as uuid } from 'uuid';
 
-import { API_URL } from '../../constants';
-import { mockTodos } from '../mock-data';
+import { API_URL } from 'app/constants';
 
-interface AddTodoRequestBody {
+import { mockTasks } from '../mock-data';
+
+interface AddTaskRequestBody {
   title: string;
 }
 
-interface UpdateTodoRequestBody {
+interface UpdateTaskRequestBody {
   title: string;
   isCompleted: boolean;
 }
 
 export const handlers = [
-  rest.get(`${API_URL}/todos`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockTodos));
+  rest.get(`${API_URL}/tasks`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(mockTasks));
   }),
-  rest.post<AddTodoRequestBody>(`${API_URL}/todos`, (req, res, ctx) => {
+
+  rest.post<AddTaskRequestBody>(`${API_URL}/tasks`, (req, res, ctx) => {
     const { title } = req.body;
 
     const newTodo = {
@@ -26,14 +28,18 @@ export const handlers = [
     };
     return res(ctx.status(200), ctx.json(newTodo));
   }),
-  rest.delete(`${API_URL}/todos/:id`, (req, res, ctx) => {
+
+  rest.delete(`${API_URL}/tasks/:id`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
-  rest.put<UpdateTodoRequestBody>(`${API_URL}/todos/:id`, (req, res, ctx) => {
-    const newTodo = {
-      ...req.body,
-      isCompleted: !req.body.isCompleted,
-    };
-    return res(ctx.status(200), ctx.json(newTodo));
+
+  rest.patch<UpdateTaskRequestBody>(`${API_URL}/tasks/:id`, (req, res, ctx) => {
+    const id = req.params.id as string;
+    const task = mockTasks.find((mockTask) => mockTask.id === id);
+    if (!task) {
+      return res(ctx.status(404), ctx.json({ message: 'Not Found' }));
+    }
+    const newTask = { ...task, ...req.body };
+    return res(ctx.status(200), ctx.json(newTask));
   }),
 ];

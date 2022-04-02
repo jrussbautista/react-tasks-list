@@ -1,11 +1,8 @@
-export interface Todo {
-  id: string;
-  title: string;
-  isCompleted: boolean;
-}
+export type Status = 'idle' | 'loading' | 'succeed' | 'failed';
 
-export interface AddTodoFields {
-  title: string;
-}
+export type ValidationErrors = {
+  errors: Record<string, string>;
+  message: string;
+};
 
-export type Status = 'loading' | 'succeed' | 'failed';
+export * from './task';

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Eat breakfast",
+    "isCompleted": false
+  },
+  {
+    "id": 2,
+    "title": "Do laundry",
+    "isCompleted": true
+  },
+  {
+    "id": 3,
+    "title": "Take out the trash",
+    "isCompleted": false
+  }
+]

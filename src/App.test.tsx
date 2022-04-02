@@ -12,7 +12,7 @@ test('should navigate to about page', async () => {
 
   userEvent.click(aboutLink);
 
-  expect(screen.getByText(/about page/));
+  expect(screen.getByText(/about page/i));
 });
 
 test('landing on a not found page', () => {

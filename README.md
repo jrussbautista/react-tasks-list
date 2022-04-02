@@ -3,13 +3,19 @@
 ## Installation
 
 ```
-git clone https://github.com/jrussumbrella/react-todo-list
+git clone https://github.com/jrussumbrella/react-tasks-list
 
-cd react-todo-list
+cd react-tasks-list
 
 npm install
 
 npm start
+```
+
+## Run JSON Server
+
+```
+npm run start:server
 ```
 
 ## Run unit and integration tests
@@ -23,3 +29,4 @@ npm run test
 ```
 npm run cypress:open
 ```
+
