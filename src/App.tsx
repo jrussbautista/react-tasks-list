@@ -1,14 +1,13 @@
 import { Switch, Route } from 'react-router-dom';
 
-import Header from 'app/header';
+import Layout from 'app/layout';
 import AboutPage from 'pages/about';
 import NotFoundPage from 'pages/not-found';
 import TasksListPage from 'pages/tasks';
 
 const App = () => {
   return (
-    <>
-      <Header />
+    <Layout>
       <Switch>
         <Route exact path="/">
           <TasksListPage />
@@ -20,7 +19,7 @@ const App = () => {
           <NotFoundPage />
         </Route>
       </Switch>
-    </>
+    </Layout>
   );
 };
 

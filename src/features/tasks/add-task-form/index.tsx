@@ -1,62 +1,74 @@
 import { unwrapResult } from '@reduxjs/toolkit';
+import { Form, Input, Button, notification } from 'antd';
 import React, { useState } from 'react';
 
 import { useAppDispatch } from 'app/hooks';
 import { addTask } from 'features/tasks/slice';
 import { AddTaskFields } from 'types/task';
 
+import styles from './styles.module.css';
+
 interface Props {
   onCancel(): void;
 }
 
-const initialFields: AddTaskFields = {
+const initialValues: AddTaskFields = {
   title: '',
 };
 
 const AddTodoForm: React.FC<Props> = ({ onCancel }) => {
   const dispatch = useAppDispatch();
 
-  const [fields, setFields] = useState(initialFields);
-  const [error, setError] = useState('');
   const [addingTask, setAddingTask] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFields({ ...fields, [e.target.name]: e.target.value });
-  };
+  const [form] = Form.useForm();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onFinish = async (values: AddTaskFields) => {
     try {
       setAddingTask(true);
-      const res = await dispatch(addTask(fields));
+      const res = await dispatch(addTask(values));
       unwrapResult(res);
-      setFields(initialFields);
       setAddingTask(false);
+      form.resetFields();
+      notification.success({ message: 'Success', description: 'Task is successfully added.' });
     } catch (error) {
-      setError('Unable to add task right now. Please try again soon.');
       setAddingTask(false);
+      notification.error({
+        message: 'Error',
+        description: 'Unable to add task right now. Please try again soon.',
+      });
     }
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="title">Title</label>
-          <input id="title" name="title" type="text" onChange={handleChange} value={fields.title} />
+    <div className={styles.formContainer}>
+      <Form
+        form={form}
+        initialValues={initialValues}
+        onFinishFailed={(err) => console.log(err)}
+        onFinish={onFinish}
+        autoComplete="off"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+      >
+        <Form.Item
+          label="Title"
+          id="title"
+          name="title"
+          rules={[{ required: true, message: 'Title is required.' }]}
+        >
+          <Input />
+        </Form.Item>
+        <div className={styles.formButtons}>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button onClick={onCancel}>Cancel</Button>
+            <Button type="primary" htmlType="submit" disabled={addingTask} loading={addingTask}>
+              Submit
+            </Button>
+          </Form.Item>
         </div>
-
-        <div>
-          <button type="button" onClick={onCancel}>
-            Cancel
-          </button>
-          <button disabled={addingTask} type="submit">
-            {addingTask ? 'Adding task...' : 'Add Task'}
-          </button>
-        </div>
-      </form>
-      {error && <div role="alert">{error}</div>}
-    </>
+      </Form>
+    </div>
   );
 };
 
