@@ -1,9 +1,12 @@
+import { EditOutlined } from '@ant-design/icons';
+import { List, Card, Button, Alert, Spin } from 'antd';
 import { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
+import DeleteTask from 'features/tasks/delete-task';
 import { fetchTasks } from 'features/tasks/slice';
 
-import TaskItem from './TaskItem';
+import styles from './styles.module.css';
 
 const TodoList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,26 +18,47 @@ const TodoList: React.FC = () => {
     }
   }, [status, dispatch]);
 
-  if (status === 'idle' || status === 'loading') {
-    return <div role="alert">Loading...</div>;
-  }
+  const isLoading = status === 'idle' || status === 'loading';
 
-  if (status === 'failed') {
+  if (isLoading) {
     return (
-      <div>
-        <div role="alert">Unexpected error occurred. Please try again soon.</div>
+      <div className={styles.loadingSpinner}>
+        <Spin aria-label="loading..." />
       </div>
     );
   }
 
-  return (
-    <ul aria-label="tasks-list">
-      {items.map((task) => (
-        <TaskItem task={task} key={task.id} />
-      ))}
+  if (status === 'failed') {
+    return (
+      <Alert
+        message="Error"
+        description="Unexpected error occurred. Please try again soon."
+        type="error"
+        showIcon
+      />
+    );
+  }
 
-      {items.length === 0 && <div role="alert">Tasks list is still empty: (</div>}
-    </ul>
+  return (
+    <Card>
+      <List
+        aria-label={'tasks list'}
+        dataSource={items}
+        locale={{ emptyText: 'Tasks list is still empty' }}
+        renderItem={(item) => (
+          <List.Item
+            actions={[
+              <Button key="task-edit" type="primary" icon={<EditOutlined />} size="small">
+                Edit
+              </Button>,
+              <DeleteTask key="task-delete" id={item.id} />,
+            ]}
+          >
+            <div>{item.title}</div>
+          </List.Item>
+        )}
+      ></List>
+    </Card>
   );
 };
 

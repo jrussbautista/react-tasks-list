@@ -6,6 +6,7 @@ import Providers from 'providers';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 render(
   <React.StrictMode>
