@@ -1,10 +1,12 @@
 import { EditOutlined } from '@ant-design/icons';
-import { List, Card, Button } from 'antd';
+import { List, Card, Button, Alert, Spin } from 'antd';
 import { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import DeleteTask from 'features/tasks/delete-task';
 import { fetchTasks } from 'features/tasks/slice';
+
+import styles from './styles.module.css';
 
 const TodoList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,14 +21,21 @@ const TodoList: React.FC = () => {
   const isLoading = status === 'idle' || status === 'loading';
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return (
+      <div className={styles.loadingSpinner}>
+        <Spin aria-label="loading..." />
+      </div>
+    );
   }
 
   if (status === 'failed') {
     return (
-      <div>
-        <div role="alert">Unexpected error occurred. Please try again soon.</div>
-      </div>
+      <Alert
+        message="Error"
+        description="Unexpected error occurred. Please try again soon."
+        type="error"
+        showIcon
+      />
     );
   }
 

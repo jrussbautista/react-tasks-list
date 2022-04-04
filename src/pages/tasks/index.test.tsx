@@ -2,7 +2,7 @@ import { render, screen, userEvent } from 'test/test-utils';
 
 import Tasks from '.';
 
-describe('Tasks Page', () => {
+describe('<Tasks Page />', () => {
   test('should open add task form', async () => {
     render(<Tasks />);
 
