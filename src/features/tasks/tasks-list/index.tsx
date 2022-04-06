@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import DeleteTask from 'features/tasks/delete-task';
-import { fetchTasks } from 'features/tasks/slice';
+import { fetchTasks, selectTask } from 'features/tasks/slice';
+import { Task } from 'types/task';
 
 import styles from './styles.module.css';
 
@@ -19,6 +20,10 @@ const TodoList: React.FC = () => {
   }, [status, dispatch]);
 
   const isLoading = status === 'idle' || status === 'loading';
+
+  const onSelectTask = (task: Task) => {
+    dispatch(selectTask(task));
+  };
 
   if (isLoading) {
     return (
@@ -48,7 +53,13 @@ const TodoList: React.FC = () => {
         renderItem={(item) => (
           <List.Item
             actions={[
-              <Button key="task-edit" type="primary" icon={<EditOutlined />} size="small">
+              <Button
+                onClick={() => onSelectTask(item)}
+                key="task-edit"
+                type="primary"
+                icon={<EditOutlined />}
+                size="small"
+              >
                 Edit
               </Button>,
               <DeleteTask key="task-delete" id={item.id} />,
