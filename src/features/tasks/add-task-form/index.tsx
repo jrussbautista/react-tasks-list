@@ -45,7 +45,6 @@ const AddTodoForm: React.FC<Props> = ({ onCancel }) => {
       <Form
         form={form}
         initialValues={initialValues}
-        onFinishFailed={(err) => console.log(err)}
         onFinish={onFinish}
         autoComplete="off"
         labelCol={{ span: 8 }}

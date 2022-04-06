@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
 import * as api from 'services/tasks';
@@ -9,12 +9,14 @@ export type TasksState = {
   items: Task[];
   status: Status;
   error: string;
+  selectedTask: Task | null;
 };
 
 export const tasksInitialState: TasksState = {
   items: [],
   status: 'idle',
   error: '',
+  selectedTask: null,
 };
 
 export const fetchTasks = createAsyncThunk<Task[], undefined, { rejectValue: ValidationErrors }>(
@@ -85,7 +87,14 @@ export const updateTask = createAsyncThunk(
 export const tasksSlice = createSlice({
   name: 'tasks',
   initialState: tasksInitialState,
-  reducers: {},
+  reducers: {
+    selectTask(state, action: PayloadAction<Task>) {
+      state.selectedTask = action.payload;
+    },
+    clearSelectedTask(state) {
+      state.selectedTask = null;
+    },
+  },
   extraReducers: (builder) => {
     // fetch tasks case
     builder.addCase(fetchTasks.pending, (state) => {
@@ -120,5 +129,7 @@ export const tasksSlice = createSlice({
     });
   },
 });
+
+export const { selectTask, clearSelectedTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
