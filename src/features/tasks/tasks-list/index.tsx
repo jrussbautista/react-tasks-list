@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import DeleteTask from 'features/tasks/delete-task';
 import { fetchTasks, selectTask } from 'features/tasks/slice';
+import ToggleCompleteTask from 'features/tasks/toggle-complete-task';
 import { Task } from 'types/task';
 
 import styles from './styles.module.css';
@@ -65,7 +66,10 @@ const TodoList: React.FC = () => {
               <DeleteTask key="task-delete" id={item.id} />,
             ]}
           >
-            <div>{item.title}</div>
+            <div>
+              <ToggleCompleteTask id={item.id} isCompleted={item.isCompleted} />
+              <label htmlFor={`task-${item.id}`}> {item.title}</label>
+            </div>
           </List.Item>
         )}
       ></List>

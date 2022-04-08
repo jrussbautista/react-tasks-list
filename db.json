@@ -2,15 +2,18 @@
   "tasks": [
     {
       "title": "Incididunt voluptate",
-      "id": 3
+      "id": 3,
+      "isCompleted": true
     },
     {
       "title": "In suscipit voluptat",
-      "id": 4
+      "id": 4,
+      "isCompleted": false
     },
     {
       "title": "Architecto voluptate",
-      "id": 5
+      "id": 5,
+      "isCompleted": false
     }
   ]
 }
