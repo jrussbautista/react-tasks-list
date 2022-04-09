@@ -3,7 +3,7 @@ import { Modal, Form, Input, notification } from 'antd';
 import { useState, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { updateTask } from 'features/tasks/slice';
+import { updateTask } from 'features/tasks/tasksSlice';
 import { UpdateTaskFields } from 'types/task';
 
 type UpdateTaskModalProps = {

@@ -1,9 +1,9 @@
 import { Layout as AntdLayout } from 'antd';
 import React from 'react';
 
-import Header from 'app/header';
+import Header from 'app/Header';
 
-import styles from './styles.module.css';
+import styles from './Layout.module.css';
 
 const { Content } = AntdLayout;
 

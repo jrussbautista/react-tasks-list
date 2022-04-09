@@ -4,7 +4,7 @@ import { Popconfirm, Button, notification } from 'antd';
 import { useState } from 'react';
 
 import { useAppDispatch } from 'app/hooks';
-import { deleteTask } from 'features/tasks/slice';
+import { deleteTask } from 'features/tasks/tasksSlice';
 
 type DeleteTaskProps = {
   id: string;

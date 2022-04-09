@@ -3,12 +3,12 @@ import { Button } from 'antd';
 import { useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
-import AddTaskForm from 'features/tasks/add-task-form';
-import { clearSelectedTask } from 'features/tasks/slice';
-import TasksList from 'features/tasks/tasks-list';
-import UpdateTaskModal from 'features/tasks/update-task-modal';
+import AddTaskForm from 'features/tasks/AddTaskForm';
+import TasksList from 'features/tasks/TasksList';
+import { clearSelectedTask } from 'features/tasks/tasksSlice';
+import UpdateTaskModal from 'features/tasks/UpdateTaskModal';
 
-import styles from './styles.module.css';
+import styles from './Tasks.module.css';
 
 const TasksPage = () => {
   const dispatch = useAppDispatch();

@@ -3,7 +3,7 @@ import { rest } from 'msw';
 
 import { API_URL } from 'app/constants';
 import { server } from 'test/server/server';
-import { render, screen, waitFor } from 'test/test-utils';
+import { render, screen, waitFor } from 'test/testUtils';
 
 import AddTaskForm from '.';
 

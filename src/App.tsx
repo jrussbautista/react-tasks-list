@@ -1,9 +1,9 @@
 import { Switch, Route } from 'react-router-dom';
 
-import Layout from 'app/layout';
-import AboutPage from 'pages/about';
-import NotFoundPage from 'pages/not-found';
-import TasksListPage from 'pages/tasks';
+import Layout from 'app/Layout';
+import AboutPage from 'pages/About';
+import NotFoundPage from 'pages/NotFound';
+import TasksListPage from 'pages/Tasks';
 
 const App = () => {
   return (

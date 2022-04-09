@@ -1,5 +1,5 @@
 import { API_URL } from 'app/constants';
-import apiClient from 'lib/api-client';
+import apiClient from 'lib/apiClient';
 import { AddTaskFields, Task, UpdateTaskFields } from 'types/task';
 
 export const getTasks = async (): Promise<Task[]> => {

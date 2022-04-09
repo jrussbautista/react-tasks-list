@@ -3,10 +3,10 @@ import { Form, Input, Button, notification } from 'antd';
 import React, { useState } from 'react';
 
 import { useAppDispatch } from 'app/hooks';
-import { addTask } from 'features/tasks/slice';
+import { addTask } from 'features/tasks/tasksSlice';
 import { AddTaskFields } from 'types/task';
 
-import styles from './styles.module.css';
+import styles from './AddTaskForm.module.css';
 
 interface Props {
   onCancel(): void;

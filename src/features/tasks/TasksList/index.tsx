@@ -3,12 +3,12 @@ import { List, Card, Button, Alert, Spin } from 'antd';
 import { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
-import DeleteTask from 'features/tasks/delete-task';
-import { fetchTasks, selectTask } from 'features/tasks/slice';
-import ToggleCompleteTask from 'features/tasks/toggle-complete-task';
+import DeleteTask from 'features/tasks/DeleteTask';
+import { fetchTasks, selectTask } from 'features/tasks/tasksSlice';
+import ToggleCompleteTask from 'features/tasks/ToggleCompleteTask';
 import { Task } from 'types/task';
 
-import styles from './styles.module.css';
+import styles from './TasksList.module.css';
 
 const TodoList: React.FC = () => {
   const dispatch = useAppDispatch();

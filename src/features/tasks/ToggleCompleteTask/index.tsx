@@ -3,7 +3,7 @@ import { Checkbox, notification } from 'antd';
 import { useState } from 'react';
 
 import { useAppDispatch } from 'app/hooks';
-import { updateTask } from 'features/tasks/slice';
+import { updateTask } from 'features/tasks/tasksSlice';
 
 type ToggleCompleteTaskProps = {
   id: string;

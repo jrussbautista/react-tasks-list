@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { API_URL } from 'app/constants';
 
-import { mockTasks } from '../mock-data';
+import { mockTasks } from '../mockData';
 
 interface AddTaskRequestBody {
   title: string;
